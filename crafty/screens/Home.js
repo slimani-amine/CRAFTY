@@ -11,7 +11,7 @@ const Home = () => {
         <Karousel/>
         <Text>Home</Text>
       </ScrollView>
-    </SafeAreaView>
+    </SafeAreaView> 
   );
 };
 

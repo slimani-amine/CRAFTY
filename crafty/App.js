@@ -3,12 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Welcomepage from "./screens/Welcomepage";
 import SignUp from "./screens/SignUp";
-
-import Login from "./screens/Login";
-
-
-
 import Home from "./screens/Home";
+import Login from "./screens/Login";
 
 
 const Stack = createStackNavigator();
