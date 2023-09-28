@@ -6,7 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 export default function SignUp({ navigation }) {
   return (
     <View className=" w-full h-full bg-white items-center justify-center ">
-        <Text>Sign Up</Text>
+
+  
         <TextInput
       className="mb-4 w-44  border border-grey-500 rounded-md"
         placeholder="Name"
