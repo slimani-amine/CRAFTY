@@ -5,6 +5,8 @@ import Welcomepage from "./screens/Welcomepage";
 import SignUp from "./screens/SignUp";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
+import ForgetPassword from "./screens/ForgetPassword";
+import CodeConfirmation from "./screens/CodeConfirmation";
 
 
 const Stack = createStackNavigator();
@@ -17,6 +19,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} options={{headerShown:false}} />
         <Stack.Screen name="SignUp" component={SignUp} options={{headerShown:false}} />
         <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
+        <Stack.Screen name="ForgetPassword" component={ForgetPassword}  />
+        <Stack.Screen name="CodeConfirmation" component={CodeConfirmation}  />
       </Stack.Navigator>
     </NavigationContainer>
   );

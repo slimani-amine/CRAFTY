@@ -35,7 +35,7 @@ export default function SignUp({ navigation }) {
       </TouchableOpacity>
       
       <TouchableOpacity
-        className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
+        className="bg-[#BF9B7A] text-white  w-96 h-12 p-2 mt-7 rounded-full items-center"
         onPress={() => navigation.navigate("Login")}
       >
         <Text className="text-center text-white font-bold">SignUp</Text>

@@ -17,7 +17,8 @@ export default function SignUp({ navigation }) {
         placeholder="Password"
       />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+      onPress={()=>navigation.navigate("ForgetPassword")}>
       <Text className="ml-16"> Forgot your passeword ? </Text>
       
       </TouchableOpacity>
