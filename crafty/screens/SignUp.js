@@ -4,10 +4,10 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function SignUp({ navigation }) {
   return (
-    <View className=" w-full h-full bg-white pl-3 mt-6  justify-center items-start ">
-      <Text className="font-bold text-2xl mb-3">Sign Up</Text>
-      <TextInput
-        className="mb-4 w-96 h-16  border  border-slate-500 rounded-md"
+    <View className=" w-full h-full bg-white items-center justify-center ">
+        <Text>Sign Up</Text>
+        <TextInput
+      className="mb-4 w-44  border border-grey-500 rounded-md"
         placeholder="Name"
       />
       <TextInput
