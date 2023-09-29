@@ -7,6 +7,7 @@ import Home from "./screens/Home";
 import Login from "./screens/Login";
 import ForgetPassword from "./screens/ForgetPassword";
 import CodeConfirmation from "./screens/CodeConfirmation";
+import UpdatePassword from "./screens/UpdatePassword";
 
 
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login}  />
         <Stack.Screen name="ForgetPassword" component={ForgetPassword}  />
         <Stack.Screen name="CodeConfirmation" component={CodeConfirmation}  />
+        <Stack.Screen name="UpdatePassword" component={UpdatePassword}  />
       </Stack.Navigator>
     </NavigationContainer>
   );
