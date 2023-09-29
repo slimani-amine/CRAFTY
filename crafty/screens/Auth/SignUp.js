@@ -47,6 +47,9 @@ export default function SignUp({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("Home")}>
         <Text className="mt-2">Continue without an account</Text>
       </TouchableOpacity>
+
+      
+    
     </View>
   );
 }

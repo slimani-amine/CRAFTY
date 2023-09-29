@@ -11,7 +11,7 @@ export default function SignUp({ navigation }) {
       <TextInput
         className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
         placeholder="Email"
-      />
+      /> 
       <TextInput
         className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
         placeholder="Password"
