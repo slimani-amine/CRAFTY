@@ -4,16 +4,16 @@ import { Text, View, TextInput, TouchableOpacity } from "react-native";
 
 export default function SignUp({ navigation }) {
   return (
-    <View className=" w-full h-full bg-white items-center justify-center ">
+    <View className="flex flex-col w-full h-full bg-[f9f9f9] items-center justify-center ">
       <View>
         <Text className="font-bold text-2xl mb-2">Login</Text>
      
       <TextInput
-        className="mb-4 w-96 h-16 pl-3 border  border-slate-500 rounded-md"
+        className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
         placeholder="Email"
       />
       <TextInput
-        className="mb-4 w-96 h-16 border border-slate-500 rounded-md"
+        className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
         placeholder="Password"
       />
       </View>
