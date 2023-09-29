@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import Welcomepage from "./screens/Auth/Welcomepage";
+import Welcomepage from "./screens/Welcomepage";
 import SignUp from "./screens/Auth/SignUp";
 import Home from "./screens/Home";
 import Login from "./screens/Auth/Login";
