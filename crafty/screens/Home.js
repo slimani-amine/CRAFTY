@@ -6,12 +6,12 @@ import { ScrollView } from "react-native-gesture-handler";
 
 const Home = () => {
   return (
-    <SafeAreaView className='bg-[f9f9f9] justify-between items-center'>
+    <SafeAreaView className="bg-[f9f9f9] justify-between items-center">
       <ScrollView>
-        <Karousel/>
+        <Karousel />
         <Text>Home</Text>
       </ScrollView>
-    </SafeAreaView> 
+    </SafeAreaView>
   );
 };
 
