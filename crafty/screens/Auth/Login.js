@@ -10,12 +10,15 @@ export default function Login({ navigation }) {
   const auth = fireBaseAuth;
   const login = async () => {
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      console.log(res);
-      navigation.navigate("Home");
+        const res = await signInWithEmailAndPassword(auth, email, password);
+        if (res.user.emailVerified) {
+        navigation.navigate("Home");
+      }else{
+        alert("check your email and verify your email first !")
+      }
     } catch (error) {
       console.log(error);
-      alert("login failed ")
+      alert("login failed ");
     }
   };
   return (
