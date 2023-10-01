@@ -19,7 +19,6 @@ import { fireBaseAuth } from "../../firebaseconfig";
 export default function SignUp({ navigation }) {
   const inputs = "w-96 px-4 h-16 bg-white rounded-md";
   const [name, setname] = useState("");
-
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const auth = fireBaseAuth;
@@ -27,8 +26,8 @@ export default function SignUp({ navigation }) {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       console.log(res);
-      await sendEmailVerification(res.user);
-      alert("check your email and verify your account !");
+      // await sendEmailVerification(res.user);
+      alert("check your email and verify your account first !");
       navigation.navigate("Login");
     } catch (error) {
       console.log(error);
@@ -118,7 +117,6 @@ export default function SignUp({ navigation }) {
                 />
               </Svg>
             </TouchableOpacity>
-
             <TouchableOpacity
               className="bg-[#BF9B7A] text-white  w-96 h-12 px-2 mt-4 rounded-full justify-center items-center"
               onPress={() => signUp()}
