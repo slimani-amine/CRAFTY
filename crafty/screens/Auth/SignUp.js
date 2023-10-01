@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import React, { useState } from "react";
 import {
   Text,
@@ -24,6 +27,8 @@ export default function SignUp({ navigation }) {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       console.log(res);
+      await sendEmailVerification(res.user);
+      alert("check your email and verify your account !");
       navigation.navigate("Login");
     } catch (error) {
       console.log(error);

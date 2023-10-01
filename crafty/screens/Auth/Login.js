@@ -16,7 +16,7 @@ export default function Login({ navigation }) {
       navigation.navigate("Home");
     } catch (error) {
       console.log(error);
-      alert("login failed "+error.message)
+      alert("login failed ")
     }
   };
   return (
