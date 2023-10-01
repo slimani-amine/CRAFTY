@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { Path, Svg } from "react-native-svg";
-
+import { fireBaseAuth } from "../../firebaseconfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login({ navigation }) {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const auth = fireBaseAuth;
+  const login = async () => {
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      console.log(res);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+      alert("login failed ")
+    }
+  };
   return (
     <View>
     <Svg className="absolute mt-12 w-full justify-stretch items-stretch"
@@ -75,7 +89,7 @@ export default function Login({ navigation }) {
       <TextInput
         className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
         placeholder="Email"
-      /> 
+      />
       <TextInput
         className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
         placeholder="Password"
