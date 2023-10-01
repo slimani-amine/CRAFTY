@@ -26,7 +26,7 @@ export default function SignUp({ navigation }) {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       console.log(res);
-      // await sendEmailVerification(res.user);
+      await sendEmailVerification(res.user);
       alert("check your email and verify your account first !");
       navigation.navigate("Login");
     } catch (error) {
