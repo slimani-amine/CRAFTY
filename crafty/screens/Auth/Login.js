@@ -3,7 +3,6 @@ import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { Path, Svg } from "react-native-svg";
 import { fireBaseAuth } from "../../firebaseconfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { err } from "react-native-svg/lib/typescript/xml";
 
 export default function Login({ navigation }) {
   const [email, setemail] = useState("");
@@ -87,7 +86,6 @@ export default function Login({ navigation }) {
       <View className="flex flex-col w-full mt-10 bg-[f9f9f9] items-center justify-center ">
         <View>
           <Text className="font-bold text-2xl mb-2">Login</Text>
-
           <TextInput
             className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
             placeholder="Email"
