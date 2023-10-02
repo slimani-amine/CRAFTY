@@ -72,8 +72,8 @@ export const Authprovider = ({ children }) => {
     };
 
     const value = {
-      onSignUP: SignUp,
-      onLogin: Login,
+      onSignUp :SignUp,
+     onLogin: Login,
       onLogout: Logout,
       authState,
     };
