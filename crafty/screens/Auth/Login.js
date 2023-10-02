@@ -1,20 +1,30 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Path, Svg } from "react-native-svg";
 import { fireBaseAuth } from "../../firebaseconfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function Login({ navigation }) {
+  const inputs = "w-96 px-4 h-16 bg-white rounded-md";
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const auth = fireBaseAuth;
   const login = async () => {
     try {
-        const res = await signInWithEmailAndPassword(auth, email, password);
-        if (res.user.emailVerified) {
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      if (res.user.emailVerified) {
         navigation.navigate("Home");
-      }else{
-        alert("check your email and verify your email first !")
+      } else {
+        alert("check your email and verify your email first !");
       }
     } catch (error) {
       console.log(error);
@@ -22,8 +32,16 @@ export default function Login({ navigation }) {
     }
   };
   return (
-    <View>
-    <Svg className="absolute mt-12 w-full justify-stretch items-stretch"
+    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={100}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex-1 justify-center items-center"
+        enabled
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <Svg
+            className="absolute mt-12 w-full justify-stretch items-stretch"
             width="375"
             height="188"
             viewBox="0 0 375 188"
@@ -85,32 +103,27 @@ export default function Login({ navigation }) {
               fill="#8C633F"
             />
           </Svg>
-    <View className="flex flex-col w-full mt-10 bg-[f9f9f9] items-center justify-center ">
-      <View>
-        <Text className="font-bold text-2xl mb-2">Login</Text>
-     
-      <TextInput
-        className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
-        placeholder="Email"
-      />
-      <TextInput
-        className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
-        placeholder="Password"
-      />
-      </View>
-      <TouchableOpacity
-      onPress={()=>navigation.navigate("ForgetPassword")}>
-      <Text className="ml-16"> Forgot your passeword ? </Text>
-      
-      </TouchableOpacity>
-      <TouchableOpacity
-        className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
-        onPress={()=>navigation.navigate("Home")}
-      >
-        <Text className="text-center text-white font-bold">Login</Text>
-      </TouchableOpacity>
+          <View className="items-center justify-center ">
+            <View className="gap-4">
+              <Text className="font-bold text-2xl mb-2">Login</Text>
 
-    </View>
-    </View>
+              <TextInput className={inputs } placeholder="Email" />
+              <TextInput className={inputs} placeholder="Password" />
+            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ForgetPassword")}
+            >
+              <Text className="ml-16"> Forgot your passeword ? </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
+              onPress={() => navigation.navigate("Home")}
+            >
+              <Text className="text-center text-white font-bold">Login</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
