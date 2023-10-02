@@ -1,8 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -14,25 +10,11 @@ import {
 import Svg, { Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { fireBaseAuth } from "../../firebaseconfig";
+
 
 export default function SignUp({ navigation }) {
   const inputs = "w-96 px-4 h-16 bg-white rounded-md";
-  const [name, setname] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const auth = fireBaseAuth;
-  const signUp = async () => {
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(res);
-      await sendEmailVerification(res.user);
-      alert("check your email and verify your account first !");
-      navigation.navigate("Login");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
       <KeyboardAvoidingView
@@ -44,7 +26,7 @@ export default function SignUp({ navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="items-center">
             <Svg
-              className="mt-12 w-full "
+              className="mt-14 w-full "
               width="137"
               height="61"
               viewBox="0 0 137 61"
@@ -83,20 +65,18 @@ export default function SignUp({ navigation }) {
               <TextInput
                 className={inputs}
                 placeholder="Name"
-                value={name}
-                onChangeText={(text) => setname(text)}
+               
+                
               />
               <TextInput
                 className={inputs}
                 placeholder="Email"
-                value={email}
-                onChangeText={(text) => setemail(text)}
+                
+               
               />
               <TextInput
                 className={inputs}
                 placeholder="Password"
-                value={password}
-                onChangeText={(text) => setpassword(text)}
                 secureTextEntry={true}
               />
             </View>
@@ -119,12 +99,13 @@ export default function SignUp({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-[#BF9B7A] text-white  w-96 h-12 px-2 mt-4 rounded-full justify-center items-center"
-              onPress={() => signUp()}
+              onPress={() => navigation.navigate("Login")}
             >
               <Text className="text-center justify-center text-white font-bold">
                 SignUp
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Text className="mt-4">Continue without an account</Text>
             </TouchableOpacity>

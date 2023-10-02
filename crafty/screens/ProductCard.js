@@ -11,8 +11,6 @@ const ProductCard = () => {
     <SafeAreaView className="bg-[f9f9f9] justify-between items-center">
     <ScrollView>
       <Karousel />
-
-
     </ScrollView>
   </SafeAreaView>
   )
