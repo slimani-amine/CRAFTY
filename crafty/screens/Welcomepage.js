@@ -4,11 +4,11 @@ const Logoimg = require("../assets/crafty.gif");
 
 const Welcomepage = ({ navigation }) => {
   return (
-    <View className="w-full h-full items-center justify-center bg-black">
+    <View className="w-full h-full items-center justify-center bg-white">
       <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
         <Image className="scale-50 pt-60" source={Logoimg} /> 
 
-      </TouchableOpacity>
+      </TouchableOpacity> 
     </View>
   );
 };
