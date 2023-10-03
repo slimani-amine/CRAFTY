@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -11,9 +11,26 @@ import Svg, { Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
+import { useForm, Controller } from "react-hook-form"
+// import { err } from "react-native-svg/lib/typescript/xml";
+import { useAuth } from "../../components/Authprovider/Authprovider";
+export default function SignUp({ navigation }) {
+  const inputs = "w-96 px-4 h-16 bg-white rounded-md ";
+  const inputsError = "w-96 px-4 h-16 bg-white rounded-md  ";
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+  const Passwoerd_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+
+  const { onLogin, onSignUp } = useAuth()
+  const register = async (data) => {
+    console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data)
+
+  }
+
 
 export default function SignUp({ navigation }) {
   const inputs = "w-96 px-4 h-16 bg-white rounded-md";
+
 
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
@@ -25,8 +42,12 @@ export default function SignUp({ navigation }) {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="items-center">
+
+          
+  
             <Svg
               className="mt-14 w-full "
+
               width="137"
               height="61"
               viewBox="0 0 137 61"
@@ -62,6 +83,43 @@ export default function SignUp({ navigation }) {
           <View className="mt-40  items-center justify-center w-full">
             <View className="gap-4">
               <Text className="font-bold text-4xl mb-2">Sign Up</Text>
+
+
+              <Controller
+                control={control}
+                name="Name"
+                rules={{ required: { value: true, message: "name is required" } }}
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ? inputs : inputsError} placeholder={"Name"} />)
+                } />
+
+              <Controller
+                control={control}
+                name="LastName"
+                rules={{ required: { value: true, message: "last name is required" } }}
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<> <TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder={"Last Name"}  />
+                  {error && <Text className="text-red-600">{error}</Text>}</>)} />
+
+              <Controller
+                control={control}
+                name="Email"
+                rules={{
+                  required: { value: true, message: "email is required" },
+                  pattern: { value: Email_rgex, message: " Invalid email address. Please enter a valid email." }
+                }}
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder={"Email"} />
+                )} />
+
+              <Controller
+                control={control}
+                name="Password"
+                rules={{
+                  required: { value: true, message: "password  is required" },
+                  pattern: { value: Passwoerd_regex, message: "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 8 characters long." }
+                }}
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder="Password" secureTextEntry />
+                )} />
+
+
               <TextInput
                 className={inputs}
                 placeholder="Name"
@@ -79,9 +137,10 @@ export default function SignUp({ navigation }) {
                 placeholder="Password"
                 secureTextEntry={true}
               />
+
             </View>
             <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">
-              <Text onPress={() => navigation.navigate("Login")}>
+              <Text onPress={() => { handleSubmit(SignUp) }}>
                 Already have an account ?
               </Text>
               <Svg
@@ -99,7 +158,7 @@ export default function SignUp({ navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
               className="bg-[#BF9B7A] text-white  w-96 h-12 px-2 mt-4 rounded-full justify-center items-center"
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => { handleSubmit(register) }}
             >
               <Text className="text-center justify-center text-white font-bold">
                 SignUp
