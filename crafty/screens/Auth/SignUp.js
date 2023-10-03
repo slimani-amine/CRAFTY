@@ -10,6 +10,7 @@ import {
 import Svg, { Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+
 import { useForm, Controller } from "react-hook-form"
 // import { err } from "react-native-svg/lib/typescript/xml";
 import { useAuth } from "../../components/Authprovider/Authprovider";
@@ -25,6 +26,12 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data)
 
   }
+
+
+export default function SignUp({ navigation }) {
+  const inputs = "w-96 px-4 h-16 bg-white rounded-md";
+
+
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
       <KeyboardAvoidingView
@@ -35,7 +42,12 @@ export default function SignUp({ navigation }) {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className="items-center">
-            <Svg className="mt-12 w-full "
+
+          
+  
+            <Svg
+              className="mt-14 w-full "
+
               width="137"
               height="61"
               viewBox="0 0 137 61"
@@ -72,6 +84,7 @@ export default function SignUp({ navigation }) {
             <View className="gap-4">
               <Text className="font-bold text-4xl mb-2">Sign Up</Text>
 
+
               <Controller
                 control={control}
                 name="Name"
@@ -106,6 +119,25 @@ export default function SignUp({ navigation }) {
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder="Password" secureTextEntry />
                 )} />
 
+
+              <TextInput
+                className={inputs}
+                placeholder="Name"
+               
+                
+              />
+              <TextInput
+                className={inputs}
+                placeholder="Email"
+                
+               
+              />
+              <TextInput
+                className={inputs}
+                placeholder="Password"
+                secureTextEntry={true}
+              />
+
             </View>
             <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">
               <Text onPress={() => { handleSubmit(SignUp) }}>
@@ -124,7 +156,6 @@ export default function SignUp({ navigation }) {
                 />
               </Svg>
             </TouchableOpacity>
-
             <TouchableOpacity
               className="bg-[#BF9B7A] text-white  w-96 h-12 px-2 mt-4 rounded-full justify-center items-center"
               onPress={() => { handleSubmit(register) }}
@@ -133,6 +164,7 @@ export default function SignUp({ navigation }) {
                 SignUp
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity onPress={() => navigation.navigate("Home")}>
               <Text className="mt-4">Continue without an account</Text>
             </TouchableOpacity>
