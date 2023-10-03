@@ -14,8 +14,10 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useForm, Controller } from "react-hook-form"
 // import { err } from "react-native-svg/lib/typescript/xml";
 import { useAuth } from "../../components/Authprovider/Authprovider";
+
 export default function SignUp({ navigation }) {
-  const inputs = "w-96 px-4 h-16 bg-white rounded-md ";
+   
+  const inputs = "w-96 px-4 h-16 mb-3 bg-white rounded-md ";
   const inputsError = "w-96 px-4 h-16 bg-white rounded-md  ";
   const { control, handleSubmit, formState: { errors } } = useForm()
   const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
@@ -26,11 +28,6 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data)
 
   }
-
-
-export default function SignUp({ navigation }) {
-  const inputs = "w-96 px-4 h-16 bg-white rounded-md";
-
 
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
@@ -46,7 +43,7 @@ export default function SignUp({ navigation }) {
           
   
             <Svg
-              className="mt-14 w-full "
+              className="mt-16 w-full "
 
               width="137"
               height="61"
@@ -89,21 +86,21 @@ export default function SignUp({ navigation }) {
                 control={control}
                 name="Name"
                 rules={{ required: { value: true, message: "name is required" } }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ? inputs : inputsError} placeholder={"Name"} />)
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs } placeholder={"Name"} />)
                 } />
 
-              <Controller
+              {/* <Controller
                 control={control}
                 name="LastName"
                 rules={{ required: { value: true, message: "last name is required" } }}
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<> <TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder={"Last Name"}  />
-                  {error && <Text className="text-red-600">{error}</Text>}</>)} />
+                  {error && <Text className="text-red-600">{error}</Text>}</>)} /> */}
 
               <Controller
                 control={control}
                 name="Email"
                 rules={{
-                  required: { value: true, message: "email is required" },
+                  required: { value: true, message: "Email is required" },
                   pattern: { value: Email_rgex, message: " Invalid email address. Please enter a valid email." }
                 }}
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder={"Email"} />
@@ -113,34 +110,17 @@ export default function SignUp({ navigation }) {
                 control={control}
                 name="Password"
                 rules={{
-                  required: { value: true, message: "password  is required" },
+                  required: { value: true, message: "Password  is required" },
                   pattern: { value: Passwoerd_regex, message: "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 8 characters long." }
                 }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder="Password" secureTextEntry />
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs}  placeholder="Password"  secureTextEntry={true} />
                 )} />
 
 
-              <TextInput
-                className={inputs}
-                placeholder="Name"
-               
-                
-              />
-              <TextInput
-                className={inputs}
-                placeholder="Email"
-                
-               
-              />
-              <TextInput
-                className={inputs}
-                placeholder="Password"
-                secureTextEntry={true}
-              />
 
-            </View>
+            </View> 
             <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">
-              <Text onPress={() => { handleSubmit(SignUp) }}>
+              <Text onPress={() => { navigation.navigate("Login")}}>
                 Already have an account ?
               </Text>
               <Svg

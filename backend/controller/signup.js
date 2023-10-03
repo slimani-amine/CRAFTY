@@ -23,7 +23,7 @@ require("dotenv").config()
         },
       })
      
-      if (user?.Email) return new Response(JSON.stringify({message:" email allready exist !"}))
+      if (user?.Email) return new Response(JSON.stringify({message:" Email allready exist !"}))
       console.log(body);
       const salt = await bcrypt.genSalt(10);
       var hashedpassowrd = await bcrypt.hash(Password, salt)
@@ -39,7 +39,7 @@ require("dotenv").config()
             Password: hashedpassowrd ,
         },
       });
-      if(!newData) return new Response(JSON.stringify({newData:"no"}))
+      if(!newData) return new Response(JSON.stringify({newData:"No"}))
       return new Response(JSON.stringify({newData})) 
     } catch (error) {
       console.log(error);

@@ -16,12 +16,12 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(408).send({ message: " Wrong email" });
+      return res.status(408).send({ message: " Wrong Email" });
     }
     const passwordMatch = await bcrypt.compare(password, user.Password);
     if (passwordMatch) {
       const access = process.env.ACCESS_TOKEN_SECRET
-      if (!access) { throw new Error("erro no access token secret") }
+      if (!access) { throw new Error("Erro no access token secret") }
       const token = jwt.sign({ userId: user.id }, access, { expiresIn: '1h' });
       console.log("🚀 ~ file: login.js:26 ~ login ~ token :", token)
 
@@ -29,7 +29,7 @@ const login = async (req, res) => {
 
 
 
-      return res.status(200).json({ message: " successfully logged in ", token: token })
+      return res.status(200).json({ message: " Successfully logged in ", token: token })
     } else {
       return res.status(405).json({ message: " Wrong password " })
 
