@@ -3,7 +3,7 @@ const prisma = require ("../lib/prisma.js")
 require("dotenv").config()
 
 
- const SignUp = async  (req) =>{
+ const SignUp = async  (req,res) =>{
    
     try {
       const body =  await req.body;
@@ -23,7 +23,7 @@ require("dotenv").config()
         },
       })
      
-      if (user?.Email) return new Response(JSON.stringify({message:" email allready exist !"}))
+      if (user?.Email)   return res.status(205).send({ message: " email allready exist !" });
       console.log(body);
       const salt = await bcrypt.genSalt(10);
       var hashedpassowrd = await bcrypt.hash(Password, salt)
@@ -39,11 +39,11 @@ require("dotenv").config()
             Password: hashedpassowrd ,
         },
       });
-      if(!newData) return new Response(JSON.stringify({newData:"no"}))
-      return new Response(JSON.stringify({newData})) 
+      if(!newData)  return res.status(408).send({ message: " failed to signup" });
+  return res.status(201).send({ message: "Success Register " });
     } catch (error) {
       console.log(error);
-      return new Response(JSON.stringify(error))
+      return   res.status(408).send({ error:error});
     }
   }
   module.exports = SignUp ;

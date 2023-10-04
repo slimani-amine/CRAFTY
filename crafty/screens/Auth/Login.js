@@ -1,9 +1,23 @@
 import React from "react";
 import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import { Path, Svg } from "react-native-svg";
-
-
+import {useForm, Controller} from 'react-hook-form';
+import { useAuth } from "../../components/Authprovider/Authprovider";
 export default function Login({ navigation }) {
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  const { onLogin, onSignUp } = useAuth()
+  const Login = async(data) => {
+    console.log("register", data);
+   const res = await onLogin(data.Email,data.Password)
+   console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res)
+   if(res===200){
+    console.log("hello")
+    navigation.navigate("Home")
+   } else {
+     alert(res)
+   }
+        
+  }
   return (
     <View>
     <Svg className="absolute mt-12 w-full justify-stretch items-stretch"
@@ -72,14 +86,25 @@ export default function Login({ navigation }) {
       <View>
         <Text className="font-bold text-2xl mb-2">Login</Text>
      
-      <TextInput
-        className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
-        placeholder="Email"
-      />
-      <TextInput
-        className="mb-4 w-96 h-16 pl-3 bg-white rounded-md"
-        placeholder="Password"
-      />
+        <Controller
+                control={control}
+                name="Email"
+                rules={{
+                  required:  "email is required" ,
+                  
+                }}
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className= "mb-4 w-96 h-16 pl-3 bg-white rounded-md " placeholder={"Email"} />
+                )} />
+      <Controller
+                control={control}
+                name="Password"
+                rules={{
+                  required:  "password  is required" ,
+                   
+                }}
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className="mb-4 w-96 h-16 pl-3 bg-white rounded-md" placeholder="Password" secureTextEntry />
+                )} />
+      
       </View>
       <TouchableOpacity
       onPress={()=>navigation.navigate("ForgetPassword")}>
@@ -88,7 +113,7 @@ export default function Login({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
-        onPress={()=>navigation.navigate("Home")}
+        onPress={handleSubmit(Login)}
       >
         <Text className="text-center text-white font-bold">Login</Text>
       </TouchableOpacity>

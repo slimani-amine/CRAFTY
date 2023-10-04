@@ -16,7 +16,7 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(408).send({ message: " Wrong email" });
+      return res.status(208).send({ message: " Wrong email" });
     }
     const passwordMatch = await bcrypt.compare(password, user.Password);
     if (passwordMatch) {
@@ -31,13 +31,13 @@ const login = async (req, res) => {
 
       return res.status(200).json({ message: " successfully logged in ", token: token })
     } else {
-      return res.status(405).json({ message: " Wrong password " })
+      return res.status(205).json({ message: " Wrong password " })
 
     }
   } catch (error) {
     console.error('Error:', error);
 
-    return res.status(405).json(error)
+    return res.status(406).json(error)
 
   }
 };
