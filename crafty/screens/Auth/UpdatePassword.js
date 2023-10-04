@@ -21,9 +21,9 @@ const UpdatePassword = ({ navigation }) => {
         enabled
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View className=" items-center justify-center">
+          <View className=" items-end justify-center">
             <View>
-              <Text className="font-bold text-2xl mb-20">Update Password</Text>
+              <Text className="font-bold text-4xl mb-20">Update Password</Text>
               <Text className="mb-3"> Please update your password.</Text>
 
               <TextInput className={inputs} placeholder="New password" />
@@ -31,7 +31,7 @@ const UpdatePassword = ({ navigation }) => {
             </View>
 
             <TouchableOpacity
-              className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-14 rounded-full items-center"
+              className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-14 rounded-full items-center justify-center"
               onPress={() => navigation.navigate("Login")}
             >
               <Text className="text-center text-white font-bold">Update</Text>
