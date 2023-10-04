@@ -11,7 +11,8 @@ import {
 import Svg, { Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import {useForm, Controller} from 'react-hook-form';
+
+import { useForm, Controller } from "react-hook-form";
 // import { err } from "react-native-svg/lib/typescript/xml";
 import { useAuth } from "../../components/Authprovider/Authprovider";
 
@@ -20,6 +21,21 @@ import { useAuth } from "../../components/Authprovider/Authprovider";
 
 
 export default function SignUp({ navigation }) {
+  const inputs = "w-96 px-4 h-16 mb-3 bg-white rounded-md ";
+  const inputsError = "w-96 px-4 h-16 bg-white rounded-md  ";
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const Passwoerd_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+  const { onLogin, onSignUp } = useAuth();
+  const register = async (data) => {
+    console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
+  };
+
   const inputs = "w-96 px-4 h-16 bg-white rounded-md  ";
   const inputsError = "w-96 px-4 h-16 bg-red rounded-md   ";
   const { control, handleSubmit, formState: { errors } } = useForm()
@@ -49,8 +65,8 @@ export default function SignUp({ navigation }) {
         enabled
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View className="items-center ">
-            <Svg className="mt-12 w-full "
+          <View className=" w-screen h-screen justify-center items-center ">
+            <Svg className="-top-14"
               width="137"
               height="61"
               viewBox="0 0 137 61"
@@ -83,9 +99,14 @@ export default function SignUp({ navigation }) {
               />
             </Svg>
           </View>
-          <View className="mt-40  items-center justify-center w-full">
-            <View className="gap-4">
-              <Text className="font-bold text-4xl mb-2">Sign Up</Text>
+        </TouchableWithoutFeedback>
+        <View className="-mt-40 -top-44 items-center justify-center w-full">
+          <View className="">
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <Text className="font-bold pointer-events-none text-4xl mb-2">
+                Sign Up
+              </Text>
+            </TouchableWithoutFeedback>
 
               <Controller
                 control={control}
@@ -99,6 +120,7 @@ export default function SignUp({ navigation }) {
                 name="LastName"
                 rules={{ required: { value: true, message: "last name is required" } }}
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<> <TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder={"Last Name"}  />
+                  {error && <Text className="text-red-600">{error}</Text>}</>)} /> */}
                   {error && <Text className="text-red-600">{error}</Text>}</>)} /> */}
 
               <Controller
