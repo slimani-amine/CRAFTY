@@ -41,10 +41,10 @@ export default function ForgetPassword({ navigation }) {
               </Text>
             </View>
           </TouchableWithoutFeedback>
-          <TextInput className={inputs} placeholder="Email" />
+          <TextInput className={inputs} placeholder="Email" onChangeText={(e)=>{setemail(e)}}/>
           <TouchableOpacity
             className="bg-[#BF9B7A] justify-center text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
-            onPress={() => navigation.navigate("CodeConfirmation")}
+            onPress={sendEmail()}
           >
             <Text className="text-center text-white font-bold">Send</Text>
           </TouchableOpacity>

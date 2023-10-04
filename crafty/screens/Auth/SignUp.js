@@ -34,17 +34,9 @@ export default function SignUp({ navigation }) {
   const { onLogin, onSignUp } = useAuth();
   const register = async (data) => {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
-  };
-
-  const inputs = "w-96 px-4 h-16 bg-white rounded-md  ";
-  const inputsError = "w-96 px-4 h-16 bg-red rounded-md   ";
-  const { control, handleSubmit, formState: { errors } } = useForm()
- 
-  const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-  const Passwoerd_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
   
-  const { onLogin, onSignUp } = useAuth()
-  const register = async(data) => {
+
+
     console.log("register", data);
    const res = await onSignUp(data.Email,data.Password,data.Name,"guedri","admin")
    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
@@ -54,8 +46,8 @@ export default function SignUp({ navigation }) {
    } else {
      alert(res)
    }
-        
-  }
+  }    
+  
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen  ">
       <KeyboardAvoidingView
@@ -115,14 +107,6 @@ export default function SignUp({ navigation }) {
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ?inputsError   : inputs} placeholder={"Name"} />)
                 } />
 
-              {/* <Controller
-                control={control}
-                name="LastName"
-                rules={{ required: { value: true, message: "last name is required" } }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<> <TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={inputs} placeholder={"Last Name"}  />
-                  {error && <Text className="text-red-600">{error}</Text>}</>)} /> */}
-                  {error && <Text className="text-red-600">{error}</Text>}</>)} /> */}
-
               <Controller
                 control={control}
                 name="Email"
@@ -174,7 +158,7 @@ export default function SignUp({ navigation }) {
               <Text className="mt-4">Continue without an account</Text>
             </TouchableOpacity>
           </View>
-        </TouchableWithoutFeedback>
+        
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
