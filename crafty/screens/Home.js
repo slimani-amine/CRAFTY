@@ -1,18 +1,23 @@
+import Fresh from "../components/Home/Fresh";
 import { View, Text } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Karousel from "../components/Home/Carousel";
 import { ScrollView } from "react-native-gesture-handler";
+import Recent from "../components/Home/Recent";
+import Articles from "../components/Home/Articles";
 
 const Home = () => {
   return (
-    <SafeAreaView className="bg-[f9f9f9] justify-between items-center">
+    <View className="bg-[f9f9f9] justify-between items-center">
       <ScrollView>
         <Karousel />
-        <Text>Home</Text>
+        <Fresh />
+        <Recent />
+        <View className="pb-6"></View>
+        <Articles />
+        <View className="pb-40"></View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
-
 export default Home;
