@@ -10,10 +10,26 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Path, Svg } from "react-native-svg";
+import {useForm, Controller} from 'react-hook-form';
+import { useAuth } from "../../components/Authprovider/Authprovider";
 
 export default function Login({ navigation }) {
   const inputs = "w-96 px-4 h-16 bg-white rounded-md";
 
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  const { onLogin, onSignUp } = useAuth()
+  const Login = async(data) => {
+    console.log("register", data);
+   const res = await onLogin(data.Email,data.Password)
+   console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res)
+   if(res===200){
+    console.log("hello")
+    navigation.navigate("Home")
+   } else {
+     alert(res)
+   }
+        
+  }
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
       <KeyboardAvoidingView
