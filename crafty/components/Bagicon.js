@@ -2,7 +2,7 @@ import React from 'react';
 import { View,Text } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-function Bagicon () {
+function BagIcon () {
   return (
     <View>
         <Text> Hello 2 </Text>
@@ -18,4 +18,4 @@ function Bagicon () {
   );
 }
 
-export default Bagicon  ;
+export default BagIcon  ;
