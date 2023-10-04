@@ -1,5 +1,5 @@
 import Fresh from "../components/Home/Fresh";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import Karousel from "../components/Home/Carousel";
 import { ScrollView } from "react-native-gesture-handler";
@@ -15,7 +15,7 @@ const Home = () => {
         <Recent />
         <View className="pb-6"></View>
         <Articles />
-        <View className="pb-40"></View>
+        <View className="pb-20"></View>
       </ScrollView>
     </View>
   );

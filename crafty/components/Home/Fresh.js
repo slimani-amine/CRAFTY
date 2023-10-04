@@ -15,15 +15,20 @@ const Fresh = ({ navigation }) => {
         </View>
         <View className="-left-12">
           <TouchableOpacity
-            // onPress={() => navigation.navigate("ForgetPassword")}
+          // onPress={() => navigation.navigate("ForgetPassword")}
           >
             <Text className="text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View className='px-4 flex flex-row items-start justify-start'>
-        <ProdCard />
-        <ProdCard />
+      <View className="flex flex-row items-start justify-start">
+        <ScrollView className="pl-4" horizontal={true}> 
+          <ProdCard /> 
+          <ProdCard />
+          <ProdCard />
+          <ProdCard />
+          <ProdCard />
+        </ScrollView>
       </View>
     </View>
   );

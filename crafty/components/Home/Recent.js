@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 const Recent = ({ navigation }) => {
   return (
@@ -14,14 +14,33 @@ const Recent = ({ navigation }) => {
         </View>
         <View className="-left-12">
           <TouchableOpacity
-            // onPress={() => navigation.navigate("ForgetPassword")}
-          >
-          </TouchableOpacity>
+          // onPress={() => navigation.navigate("ForgetPassword")}
+          ></TouchableOpacity>
         </View>
       </View>
-      <View className='px-4 gap-4 flex flex-row items-start justify-start'>
-        <Image className="w-36 h-36 rounded-lg" src="https://i.etsystatic.com/40322965/r/il/2401a1/4719730318/il_1588xN.4719730318_79d9.jpg"/>
-        <Image className="w-36 h-36 rounded-lg" src="https://i.etsystatic.com/9765682/r/il/93591e/4134099729/il_1588xN.4134099729_62dm.jpg"/>
+      <View className="flex flex-row items-start justify-start"> 
+        <ScrollView className="pl-4 gap-4" horizontal={true}> 
+          <Image
+            className="w-36 h-36 rounded-lg"
+            src="https://i.etsystatic.com/40322965/r/il/2401a1/4719730318/il_1588xN.4719730318_79d9.jpg"
+          />
+          <Image
+            className="w-36 h-36 rounded-lg"
+            src="https://i.etsystatic.com/9765682/r/il/93591e/4134099729/il_1588xN.4134099729_62dm.jpg"
+          />
+          <Image
+            className="w-36 h-36 rounded-lg"
+            src="https://i.etsystatic.com/40322965/r/il/2401a1/4719730318/il_1588xN.4719730318_79d9.jpg"
+          />
+          <Image
+            className="w-36 h-36 rounded-lg"
+            src="https://i.etsystatic.com/9765682/r/il/93591e/4134099729/il_1588xN.4134099729_62dm.jpg"
+          />
+          <Image
+            className="w-36 h-36 rounded-lg"
+            src="https://i.etsystatic.com/40322965/r/il/2401a1/4719730318/il_1588xN.4719730318_79d9.jpg"
+          />
+        </ScrollView>
       </View>
     </View>
   );

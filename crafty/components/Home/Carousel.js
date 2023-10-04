@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
 function Karousel() {
