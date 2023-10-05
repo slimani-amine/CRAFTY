@@ -1,14 +1,17 @@
 import { View, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 const Logoimg = require("../assets/crafty.gif");
 
 const Welcomepage = ({ navigation }) => {
+  useEffect(()=>{
+    setTimeout(() => {
+      navigation.navigate("CodeConfirmation")
+    }, 2000);
+  },[])
+
   return (
     <View className="w-full h-full items-center justify-center bg-white">
-      <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
         <Image className="scale-50 pt-60" source={Logoimg} /> 
-
-      </TouchableOpacity>
     </View>
   );
 };

@@ -1,7 +1,3 @@
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
 import React, { useState } from "react";
 import {
   Text,
@@ -10,31 +6,50 @@ import {
   TouchableOpacity,
   Keyboard,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { fireBaseAuth } from "../../firebaseconfig";
+
+import { useForm, Controller } from "react-hook-form";
+// import { err } from "react-native-svg/lib/typescript/xml";
+import { useAuth } from "../../components/Authprovider/Authprovider";
 
 export default function SignUp({ navigation }) {
-  const inputs = "w-96 px-4 h-16 bg-white rounded-md";
-  const [name, setname] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const auth = fireBaseAuth;
-  const signUp = async () => {
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      await sendEmailVerification(res.user);
-      alert("check your email and verify your account first !");
+  const inputs = "w-96 px-4 h-16 mb-3 bg-white rounded-md ";
+  const inputsError = "w-96 px-4 h-16 bg-white rounded-md  ";
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const Passwoerd_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+  const { onLogin, onSignUp } = useAuth();
+  const register = async (data) => {
+    console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
+
+    console.log("register", data);
+    const res = await onSignUp(
+      data.Email,
+      data.Password,
+      data.Name,
+      "guedri",
+      "admin"
+    );
+    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res);
+    if (res === 201) {
+      console.log("hello");
       navigation.navigate("Login");
-    } catch (error) {
-      console.log(error);
-      alert("error ",error.message)
+    } else {
+      alert(res);
     }
   };
+
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen  ">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -42,9 +57,9 @@ export default function SignUp({ navigation }) {
         enabled
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View className="items-center">
+          <View className=" w-screen h-screen justify-center items-center ">
             <Svg
-              className="mt-12 w-full "
+              className="-top-14"
               width="137"
               height="61"
               viewBox="0 0 137 61"
@@ -77,60 +92,115 @@ export default function SignUp({ navigation }) {
               />
             </Svg>
           </View>
-          <View className="mt-40  items-center justify-center w-full">
-            <View className="gap-4">
-              <Text className="font-bold text-4xl mb-2">Sign Up</Text>
-              <TextInput
-                className={inputs}
-                placeholder="Name"
-                value={name}
-                onChangeText={(text) => setname(text)}
-              />
-              <TextInput
-                className={inputs}
-                placeholder="Email"
-                value={email}
-                onChangeText={(text) => setemail(text)}
-              />
-              <TextInput
-                className={inputs}
-                placeholder="Password"
-                value={password}
-                onChangeText={(text) => setpassword(text)}
-                secureTextEntry={true}
-              />
-            </View>
-            <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">
-              <Text onPress={() => navigation.navigate("Login")}>
-                Already have an account ?
-              </Text>
-              <Svg
-                width="16"
-                height="8"
-                viewBox="0 0 16 8"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <Path
-                  d="M12.01 3.00008H1C0.45 3.00008 0 3.45008 0 4.00008C0 4.55008 0.45 5.00008 1 5.00008H12.01V6.79008C12.01 7.24008 12.55 7.46008 12.86 7.14008L15.64 4.35008C15.83 4.15008 15.83 3.84008 15.64 3.64008L12.86 0.850078C12.55 0.530078 12.01 0.760078 12.01 1.20008V3.00008Z"
-                  fill="#BF9B7A"
-                />
-              </Svg>
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="bg-[#BF9B7A] text-white  w-96 h-12 px-2 mt-4 rounded-full justify-center items-center"
-              onPress={() => signUp()}
-            >
-              <Text className="text-center justify-center text-white font-bold">
-                SignUp
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-              <Text className="mt-4">Continue without an account</Text>
-            </TouchableOpacity>
-          </View>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
+        <View className="-mt-40 -top-44 items-center justify-center w-full">
+          <View className="">
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <Text className="font-bold pointer-events-none text-4xl mb-2">
+                Sign Up
+              </Text>
+            </TouchableWithoutFeedback>
+
+            <Controller
+              control={control}
+              name="Name"
+              rules={{ required: "name is required" }}
+              render={({
+                field: { value, onChange, onBlur },
+                fieldState: { error },
+              }) => (
+                <TextInput
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  className={error ? inputsError : inputs}
+                  placeholder={"Name"}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="Email"
+              rules={{
+                required: "email is required",
+                pattern: {
+                  value: Email_rgex,
+                  message:
+                    " Invalid email address. Please enter a valid email.",
+                },
+              }}
+              render={({
+                field: { value, onChange, onBlur },
+                fieldState: { error },
+              }) => (
+                <TextInput
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  className={error ? inputsError : inputs}
+                  placeholder={"Email"}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="Password"
+              rules={{
+                required: "password  is required",
+                pattern: {
+                  value: Passwoerd_regex,
+                  message:
+                    "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 8 characters long.",
+                },
+              }}
+              render={({
+                field: { value, onChange, onBlur },
+                fieldState: { error },
+              }) => (
+                <TextInput
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  className={error ? inputsError : inputs}
+                  placeholder="Password"
+                  secureTextEntry
+                />
+              )}
+            />
+          </View>
+          <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">
+            <Text onPress={() => navigation.navigate("Login")}>
+              Already have an account ?
+            </Text>
+            <Svg
+              width="16"
+              height="8"
+              viewBox="0 0 16 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <Path
+                d="M12.01 3.00008H1C0.45 3.00008 0 3.45008 0 4.00008C0 4.55008 0.45 5.00008 1 5.00008H12.01V6.79008C12.01 7.24008 12.55 7.46008 12.86 7.14008L15.64 4.35008C15.83 4.15008 15.83 3.84008 15.64 3.64008L12.86 0.850078C12.55 0.530078 12.01 0.760078 12.01 1.20008V3.00008Z"
+                fill="#BF9B7A"
+              />
+            </Svg>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            className="bg-[#BF9B7A] text-white  w-96 h-12 px-2 mt-4 rounded-full justify-center items-center"
+            onPress={handleSubmit(register)}
+          >
+            <Text className="text-center justify-center text-white font-bold">
+              SignUp
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Text className="mt-4">Continue without an account</Text>
+          </TouchableOpacity>
+        </View>
+y      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
