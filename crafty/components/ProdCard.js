@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React, { useState } from "react";
-import HeartIcon from "./HeartIcon";
+// import HeartIcon from "./HeartIcon";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
 const ProdCard = () => {
@@ -15,7 +15,7 @@ const ProdCard = () => {
         onPressOut={() => setLike(!like)}
         className="-top-5 -right-32 "
       >
-        <HeartIcon state={like} />
+        {/* <HeartIcon state={like} /> */}
       </Pressable>
       <View className="-top-8  items-start justify-start">
         <View className="flex flex-row pb-1">
