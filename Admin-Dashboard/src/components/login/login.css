@@ -1,0 +1,76 @@
+::selection {
+  background-color: gray;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  margin-top: 10%;
+  width: 400px;
+  height: 400px;
+  background-image: url("https://i.ibb.co/wR7TB3s/Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Cr.png");
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.title {
+  color: black;
+  margin: 3rem 0;
+  font-size: 2rem;
+
+}
+
+.input {
+  margin: 0.5rem 0;
+  padding: 1rem 0.5rem;
+  width: 20rem;
+  background-color: inherit;
+  color: black;
+  border: none;
+  outline: none;
+}
+
+.username {
+  border-bottom: 1px solid black;
+  transition: all 400ms;
+}
+
+.username:hover {
+  border: none;
+}
+
+.password {
+  border-bottom: 1px solid black;
+  transition: all 400ms;
+}
+
+.password:hover {
+  border: none;
+}
+
+.btn {
+  height: 3rem;
+  width: 20rem;
+  margin-top: 3rem;
+  background-color: black;
+  border-radius: 0.5rem;
+  border: none;
+  font-size: 1.2rem;
+  transition: all 400ms;
+  box-shadow: 0 0 10px antiquewhite, 0 0 10px antiquewhite;
+  color: white;
+}
+
+.btn:hover {
+  background-color: antiquewhite;
+  box-shadow: none;
+}
