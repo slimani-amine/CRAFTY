@@ -18,24 +18,52 @@ const WishlistRoute = require('./Routes/WishlistRoute.js')
 
 
 
-const { Server } = require("socket.io");
+const socket_io = require("socket.io");
+const http = require('http');
 const app = express();
 const PORT = 4000;
-const http = require("http");
+
 const cors = require("cors");
-const server = http.createServer(app);
-
-
-
-
-
-
 app.use(express.json());
 
 app.use(cors());
 app.use("/auth", authroute);
 app.use("/reset", resertRroute);
-app.use("/item",ItemRoute);
+const server = http.createServer(app)
+const io =  socket_io(server)
+
+const connectedUsers = {}
+io.on("connection", (socket) => {
+  console.log("Socket ID:", socket.id);
+
+  // Store the user ID when a user connects
+  socket.on("setUserID", (userID) => {
+    socket.userID = userID;
+   
+    connectedUsers[userID] = socket;
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.userID);
+   
+    delete connectedUsers[socket.userID];
+  });
+
+  socket.on("privateMessage", ({ recipientID, message }) => {
+    console.log("e: index.js:45 ~ socket.on ~ recipientID, message:",recipientID, message)
+    const recipientSocket = connectedUsers[recipientID];
+    if (recipientSocket) {
+      
+      recipientSocket.emit("privateMessage", {
+        senderID: socket.userID,
+        message: message,
+      });
+    }
+  });
+  
+});
+
+ app.use("/item",ItemRoute);
 app.use("/article",ArticleRoute);
 app.use("/order",OrderRoute);
 app.use("/material",MaterialRoute);
@@ -50,5 +78,7 @@ app.use("/favourite",FavouriteItemRoute);
 app.use("/wishlist",WishlistRoute);
 
 server.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+  console.log(`listening on port :  ${PORT}`);
 });
+
+module.exports = { io }

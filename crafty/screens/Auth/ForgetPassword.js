@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios"
 import {
   Text,
   View,
@@ -12,17 +13,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ForgetPassword({ navigation }) {
   const inputs = "w-96 px-4 h-16 bg-white rounded-md";
-   const [email,setemail] = useState("")
+   const [email,setemail] = useState()
    const sendEmail = async()=> {
-    const res = await axios.post("http://192.168.11.222:4000/reset/reset-password/send",{email:email})
-    console.log("🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:", res.status)
+    try{
+          const res = await axios.post("http://192.168.100.121:4000/reset/reset-password/send",{email:email})
+        console.log("🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:", res.data)
+      
+        if(res.status===200){
+        navigation.navigate("CodeConfirmation",{ data: email })
+        }else{
+          alert(res.data)
+        }}
+        catch (err) {
+          console.error('Error:', err);
+          }}
+        
    
-    if(res.status===200){
-    navigation.navigate("CodeConfirmation")
-    }else{
-      alert(res.data)
-    }
-   }
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9]  ">
       <KeyboardAvoidingView
@@ -44,7 +50,7 @@ export default function ForgetPassword({ navigation }) {
           <TextInput className={inputs} placeholder="Email" onChangeText={(e)=>{setemail(e)}}/>
           <TouchableOpacity
             className="bg-[#BF9B7A] justify-center text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
-            onPress={sendEmail()}
+            onPress={sendEmail}
           >
             <Text className="text-center text-white font-bold">Send</Text>
           </TouchableOpacity>
