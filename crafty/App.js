@@ -9,6 +9,7 @@ import ForgetPassword from "./screens/Auth/ForgetPassword";
 import CodeConfirmation from "./screens/Auth/CodeConfirmation";
 import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
+import Chat from "./screens/chat";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -27,6 +28,8 @@ export default function App() {
           component={SignUp}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="Chat" component={Chat}/>
+
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
         <Stack.Screen name="CodeConfirmation" component={CodeConfirmation} />

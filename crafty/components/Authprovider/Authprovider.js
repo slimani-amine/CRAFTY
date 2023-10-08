@@ -30,8 +30,8 @@ export const Authprovider = ({ children }) => {
 
   const SignUp = async (email, password, name, lastname, role) => {
     try {
-      const res = await axios.post("http://192.168.11.222:4000/auth/signup", {
-        Role: role,
+    const  res=  await axios.post("http://192.168.11.222:4000/auth/signup", {
+        Role:role,
         Name: name,
         Password: password,
         LastName: lastname,
@@ -43,13 +43,10 @@ export const Authprovider = ({ children }) => {
       return res.status;
     } catch (err) {
       return err;
-    }
-  };
-  const Login = async (email, password) => {
-    try {
-      const response = await axios.post(
-        "http://192.168.11.222:4000/auth/login",
-        {
+    }}
+    const Login = async (email, password) => {
+      try {
+        const response = await axios.post("http://192.168.11.222:4000/auth/login", {
           password: password,
           Email: email,
         }

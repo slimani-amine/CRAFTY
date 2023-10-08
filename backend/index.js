@@ -15,32 +15,40 @@ const NotificationRoute = require("./Routes/NotificationRoute.js");
 const FavouriteItemRoute = require("./Routes/FavouriteItemRoute.js");
 const WishlistRoute = require("./Routes/WishlistRoute.js");
 
-const { Server } = require("socket.io");
+const socket_io = require("socket.io");
+const http = require('http');
 const app = express();
 const PORT = 4000;
-const http = require("http");
+
 const cors = require("cors");
 const server = http.createServer(app);
+
+
+
+
+
 
 app.use(express.json());
 
 app.use(cors());
 app.use("/auth", authroute);
 app.use("/reset", resertRroute);
-app.use("/item", ItemRoute);
-app.use("/article", ArticleRoute);
-app.use("/order", OrderRoute);
-app.use("/material", MaterialRoute);
-app.use("/comment", CommentRoute);
-app.use("/image", ImageRoute);
-app.use("/review", ReviewRoute);
-app.use("/tag", TagRoute);
-app.use("/user", UserRoute);
-app.use("/adress", AdressRoute);
-app.use("/notification", NotificationRoute);
-app.use("/favourite", FavouriteItemRoute);
-app.use("/wishlist", WishlistRoute);
+app.use("/item",ItemRoute);
+app.use("/article",ArticleRoute);
+app.use("/order",OrderRoute);
+app.use("/material",MaterialRoute);
+app.use("/comment",CommentRoute);
+app.use("/image",ImageRoute);
+app.use("/review",ReviewRoute);
+app.use("/tag",TagRoute);
+app.use("/user",UserRoute);
+app.use("/adress",AdressRoute);
+app.use("/notification",NotificationRoute);
+app.use("/favourite",FavouriteItemRoute);
+app.use("/wishlist",WishlistRoute);
 
 server.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+  console.log(`listening on port :  ${PORT}`);
 });
+
+module.exports = { io }
