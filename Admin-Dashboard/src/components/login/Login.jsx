@@ -11,11 +11,9 @@ function login({ setUser }) {
     e.preventDefault();
     signInWithEmailAndPassword(database, email, password)
       .then((result) => {
-        console.log();
-        let em = result.user.reloadUserInfo.email;
         let token = result._tokenResponse.idToken;
         localStorage.setItem("token", token);
-        toast.success("welcomeBack " + em.substr(0, em.indexOf("@")));
+        toast.success("welcomeBack " + email.substring(0, email.indexOf("@")));
         setTimeout(() => {
           setUser();
         }, 3000);

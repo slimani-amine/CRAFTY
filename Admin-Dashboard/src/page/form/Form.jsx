@@ -9,6 +9,8 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const regEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -43,7 +45,6 @@ const Form = () => {
     setOpen(false);
   };
 
-
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [BusinessName, setBusinessName] = useState("");
@@ -71,6 +72,15 @@ const Form = () => {
       role,
     };
     //here add the query of add someone + verification :
+    axios
+      .post("http://localhost:4000/user/adduser", obj)
+      .then(() => {
+        toast.success("Added");
+      })
+      .catch(() => {
+        toast.error("Error! Please try again");
+      });
+
     console.log("done", obj);
     handleClick();
   };
@@ -208,9 +218,8 @@ const Form = () => {
         <Box sx={{ textAlign: "right" }}>
           <Button
             type="submit"
-            sx={{ textTransform: "capitalize" ,backgroundColor:"#8c633f" }}
+            sx={{ textTransform: "capitalize", backgroundColor: "#8c633f" }}
             variant="contained"
-            
           >
             Create New User
           </Button>

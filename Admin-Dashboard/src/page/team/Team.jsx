@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import {rows} from "./data"
+import { rows } from "./data";
 import { useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -9,26 +9,46 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import Header from "../../components/Header";
 import DeleteOutlineTwoToneIcon from "@mui/icons-material/DeleteOutlineTwoTone";
 import UpdateIcon from "@mui/icons-material/Update";
+import axios from "axios";
+import { toast } from "react-toastify";
 const Team = () => {
   const theme = useTheme();
+  const [trigger, setTrigger] = useState(false);
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    const endpoints = ["http://localhost:4000/user/getusers"];
+    Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((results) => {
+        const newData = results.map((result) => result.data);
+        setdata([...data, ...newData]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [trigger]);
   const deleteOne = (rowToDelete) => {
-    console.log(rowToDelete);
-    // Find the index of the row to delete
-    const rowIndex = rows.findIndex((row) => row.id === rowToDelete.id);
-
-    if (rowIndex !== -1) {
-      // Create a new array without the deleted row
-      const updatedRows = [
-        ...rows.slice(0, rowIndex),
-        ...rows.slice(rowIndex + 1),
-      ];
-
-      // Update the rows variable with the new data
-      rows = updatedRows;
-    }
+    axios
+      .delete("http://localhost:4000/user/deleteuser", rowToDelete)
+      .then(() => {
+        toast.success("Deleted");
+        setTrigger(!trigger);
+      })
+      .catch(() => {
+        toast.error("Error! Please try again");
+      });
+  };
+  const updateOne = (rowToUpdate) => {
+    axios
+      .put("http://localhost:4000/user/updateuser", rowToUpdate)
+      .then(() => {
+        toast.success("Deleted");
+        setTrigger(!trigger);
+      })
+      .catch(() => {
+        toast.error("Error! Please try again");
+      });
   };
 
-  // field ==> Reqird
   const columns = [
     {
       field: "id",
@@ -122,7 +142,7 @@ const Team = () => {
                 mr: 5,
               }}
               onClick={() => {
-                deleteOne(row);
+                updateOne(row);
               }}
             >
               <Typography sx={{ fontSize: "13px", color: "#fff" }}>

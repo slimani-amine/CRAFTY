@@ -4,11 +4,9 @@ require("dotenv").config()
 
 
  const SignUp = async  (req,res) =>{
-   
     try {
       const body =  await req.body;
       console.log(body);
-      
       const { 
         Role,
         Name,

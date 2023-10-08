@@ -1,6 +1,6 @@
 const prisma = require("../lib/prisma.js");
 require("dotenv").config();
- 
+
 /* Get Users */
 const GET = async (req, res) => {
   try {
@@ -23,7 +23,7 @@ const UPDATE = async (req, { params }) => {
       throw new Error("ID parameter is missing");
     }
     const body = await req.json();
-    
+
     const { id } = params;
     let hashedPassword;
     if (body.password) {
@@ -46,8 +46,11 @@ const UPDATE = async (req, { params }) => {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(JSON.stringify({ message: "Error updating user", error: message }), { status: 500 });
-  } 
+    return new Response(
+      JSON.stringify({ message: "Error updating user", error: message }),
+      { status: 500 }
+    );
+  }
 };
 
 /*DELETE User */
@@ -56,7 +59,6 @@ const DELETE = async (req, { params }) => {
     if (!params || !params.id) {
       throw new Error("ID parameter is missing");
     }
-
     const { id } = params;
     await prisma.User.delete({
       where: { id },
