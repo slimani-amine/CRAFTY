@@ -21,8 +21,8 @@ import { useAuth } from "../../components/Authprovider/Authprovider";
 
 
 export default function SignUp({ navigation }) {
-  const inputs = "w-96 px-4 h-16 mb-3 bg-white rounded-md ";
-  const inputsError = "w-96 px-4 h-16 bg-white rounded-md  ";
+  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
+  const inputsError = "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  "
   const {
     control,
     handleSubmit,
@@ -38,7 +38,7 @@ export default function SignUp({ navigation }) {
 
 
     console.log("register", data);
-   const res = await onSignUp(data.Email,data.Password,data.Name,"guedri","admin")
+   const res = await onSignUp(data.Email,data.Password,data.Name,"","user")
    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
    if(res===201){
     console.log("hello")
@@ -104,8 +104,8 @@ export default function SignUp({ navigation }) {
                 control={control}
                 name="Name"
                rules={{ required:  "name is required"  }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ?inputsError   : inputs} placeholder={"Name"} />)
-                } />
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<><TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ? inputsError   : inputs} placeholder={"Name"} />
+                {error &&<Text className="text-red-500">{error.message}</Text>} </>) } />
 
               <Controller
                 control={control}
@@ -114,8 +114,8 @@ export default function SignUp({ navigation }) {
                   required:  "email is required" ,
                    pattern: { value: Email_rgex, message: " Invalid email address. Please enter a valid email." }
                 }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={ error ?inputsError :inputs } placeholder={"Email"} />
-                )} />
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<><TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={ error ? inputsError :inputs } placeholder={"Email"} />
+                {error &&<Text className="text-red-500">{error.message}</Text>}</> )} />
 
               <Controller
                 control={control}
@@ -124,8 +124,8 @@ export default function SignUp({ navigation }) {
                   required:  "password  is required" ,
                    pattern: { value: Passwoerd_regex, message: "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 8 characters long." }
                 }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ?inputsError :inputs} placeholder="Password" secureTextEntry />
-                )} />
+                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<><TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ? inputsError :inputs} placeholder="Password" secureTextEntry />
+                {error &&<Text className="text-red-500">{error.message}</Text>}</>   )} />
 
             </View>
             <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">

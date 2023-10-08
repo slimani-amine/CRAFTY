@@ -3,7 +3,7 @@ const { google } = require('googleapis');
 const prisma = require("../lib/prisma.js")
 const OAuth2 = google.auth.OAuth2;
 const nodemailer = require("nodemailer");
-
+const bcrypt = require("bcrypt")
 const CLIENT_ID = "158506994862-p6mi7ndl4m8f576p7fcbpq3kjq4v3kkb.apps.googleusercontent.com"
 const CLIENT_SECRET = "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";
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
@@ -84,7 +84,7 @@ const resetPassword= async(req,res)=>{
     var hashedpassowrd = await bcrypt.hash(password, salt)
     const updateUser = await prisma.user.update({
         where: {
-          email: email,
+          Email: email,
         },
         data: {
           Password: hashedpassowrd,
