@@ -48,6 +48,7 @@ export const Authprovider = ({ children }) => {
       try {
         const response = await axios.post("http://192.168.11.222:4000/auth/login", {
           password: password,
+<<<<<<< HEAD
           Email: email,
         }
       );
@@ -65,6 +66,9 @@ export const Authprovider = ({ children }) => {
         setAuthState({
           token: response.data.token,
           authenticated: true,
+=======
+          email: email,
+>>>>>>> 63cd55f47af46800e6695f38cfde39ceb3541fd2
         });
         axios.defaults.headers.common[
           "Authorization"
