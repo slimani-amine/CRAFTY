@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React, { useState } from "react";
-import HeartIcon from "./HeartIcon";
+import HeartIcon from "./HeartIcon"
 import { Rating, AirbnbRating } from "react-native-ratings";
 
 const ProdCard = () => {
