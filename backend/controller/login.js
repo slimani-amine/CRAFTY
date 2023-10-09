@@ -8,17 +8,17 @@ const jwt = require('jsonwebtoken');
 const login = async (req, res) => {
   try {
 
-    const { Email, password } = await req.body;
+    const { email, password } = await req.body;
     const user = await prisma.user.findFirst({
       where: {
-        Email: Email,
+        email: email,
       },
     });
 
     if (!user) {
       return res.status(208).send({ message: " Wrong email" });
     }
-    const passwordMatch = await bcrypt.compare(password, user.Password);
+    const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
       const access = process.env.ACCESS_TOKEN_SECRET
       if (!access) { throw new Error("Erro no access token secret") }

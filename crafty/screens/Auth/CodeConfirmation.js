@@ -9,13 +9,35 @@ import {
 import React, { useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-
-const CodeConfirmation = ({ navigation }) => {
+import axios from "axios"
+import ADRESS_API from "../../Api";
+const CodeConfirmation = ({ navigation ,route }) => {
   const [inputValues, setInputValues] = useState(["", "", "", ""]);
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
   const inputs =
     "w-16 h-16 pl-5 pt-1 bg-white font-semibold text-4xl rounded-md";
 
+    const data =route.params 
+  const CodeConfirmationVerify = async ()=>{
+     console.log(inputValues);
+     const code = inputValues.join("")*1
+     console.log("🚀 ~ file: CodeConfirmation.js:24 ~ CodeConfirmationVerify ~ code:", code)
+     
+     console.log("🚀 ~ file: CodeConfirmation.js:24 ~ CodeConfirmationVerify ~  email:",  data.data)
+     
+     
+      const res = await axios.post(`http:${ADRESS_API}:4000/reset/reset-password/verify`,{email:data.data ,code})
+      console.log("🚀 ~ file: CodeConfirmation.js:27 ~ CodeConfirmationVerify ~ res:", res.status)
+      
+     
+      if(res.status===200){
+      navigation.navigate("UpdatePassword",{data:data.data})
+      }else{
+        alert(res.data)
+      }
+     }
+
+  
   const changeFocus = (index, text) => {
     const newInputValues = [...inputValues];
     newInputValues[index] = text;
@@ -58,7 +80,7 @@ const CodeConfirmation = ({ navigation }) => {
           </TouchableWithoutFeedback>
           <TouchableOpacity
             className="bg-[#BF9B7A] text-white w-96 h-12 justify-center rounded-full items-center"
-            onPress={() => navigation.navigate("UpdatePassword")}
+            onPress={CodeConfirmationVerify}
           >
             <Text className="text-center text-white font-bold">Verify</Text>
           </TouchableOpacity>

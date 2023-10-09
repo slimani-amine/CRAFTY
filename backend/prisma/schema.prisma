@@ -9,16 +9,16 @@ datasource db {
 
 model User {
   id              Int             @id @default(autoincrement())
-  role            Role            
+  role            Role
   name            String
   lastName        String
   businessName    String?         @unique
   email           String          @unique
   dateOfBirth     DateTime?
   password        String          @db.VarChar(255)
-  billingAddress  String
+  billingAddress  String?
   shippingAddress String?
-  shippingInfo    String
+  shippingInfo    String?
   wishlists       Wishlist[]
   items           Item[]
   orders          Order[]

@@ -10,38 +10,38 @@ require("dotenv").config()
       console.log(body);
       
       const { 
-        Role,
-        Name,
-        LastName,
-        BuisnessName,
-        Email,
-        DateOfBirth,
-        Password} =body
+        role,
+        name,
+        lastName,
+        buisnessName,
+        email,
+        dateOfBirth,
+        password} =body
       const user = await prisma.user.findFirst({
         where: {
-          Email: Email
+          email: email
         },
       })
      
-      if (user?.Email)   return res.status(205).send({ message: " email allready exist !" });
+      if (user?.email)   return res.status(205).send({ message: " email allready exist !" });
       console.log(body);
       const salt = await bcrypt.genSalt(10);
-      var hashedpassowrd = await bcrypt.hash(Password, salt)
+      var hashedpassowrd = await bcrypt.hash(password, salt)
       const newData = await prisma.user.create({
         data: { 
             
-            Role: Role ,
-            Name: Name,
-            LastName: LastName,
-            BuisnessName:BuisnessName,
-            Email: Email,
-            DateOfBirth: DateOfBirth  ,
-            Password: hashedpassowrd ,
+            role: role ,
+            name: name,
+            lastName: lastName,
+            buisnessName:buisnessName,
+            email: email,
+            dateOfBirth: dateOfBirth  ,
+            password: hashedpassowrd ,
         },
       });
-      if(!newData)  return res.status(408).send({ message: " failed to signup" });
-  return res.status(201).send({ message: "Success Register " });
-    } catch (error) {
+      if(!newData)  return res.status(208).send({ message: " failed to signup" });
+     return res.status(201).send({ message: "Success Register " });
+     } catch (error) {
       console.log(error);
       return   res.status(408).send({ error:error});
     }
