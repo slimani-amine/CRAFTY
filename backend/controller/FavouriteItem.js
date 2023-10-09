@@ -12,7 +12,6 @@ const POST = async (req, res) => {
           itemId,
         },
       });
-
       return res.status(201).json({ FavouriteItem });
     } catch (error) {
       console.error(error);

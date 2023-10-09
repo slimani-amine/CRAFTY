@@ -12,10 +12,10 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Tostify } from "../Tostify/ToastyFy";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const regEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 const data = [
   {
     value: "Admin",
@@ -31,7 +31,10 @@ const data = [
   },
 ];
 
-const Form = () => {
+const UpdateTeam = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { rowData } = location.state || {};
   const {
     register,
     handleSubmit,
@@ -46,13 +49,13 @@ const Form = () => {
     setOpen(false);
   };
 
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [BusinessName, setBusinessName] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [role, setrole] = useState("User");
-  const [Birthday, setBirthday] = React.useState(dayjs("2022-04-17"));
+  const [firstName, setfirstName] = useState(rowData.name);
+  const [lastName, setlastName] = useState(rowData.lastName);
+  const [BusinessName, setBusinessName] = useState(rowData.name);
+  const [email, setemail] = useState(rowData.email);
+  const [password, setpassword] = useState(rowData.password);
+  const [role, setrole] = useState(rowData.access);
+  const [Birthday, setBirthday] = React.useState(dayjs(rowData.birthday));
   const handleClick = () => {
     setOpen(true);
     setfirstName("");
@@ -75,9 +78,12 @@ const Form = () => {
     //here add the query of add someone + verification :
 
     axios
-      .post("http://localhost:4000/auth/signup", obj)
+      .put(`http://localhost:4000/user/updateuser/${rowToUpdate.id}`, obj)
       .then(() => {
-        toast.success("account created successfully.");
+        toast.success("information has been updated successfully.");
+        setTimeout(() => {
+          navigate("/team");
+        }, 1100);
       })
       .catch(() => {
         toast.error("An error occurred. Please try again.");
@@ -90,8 +96,8 @@ const Form = () => {
   return (
     <Box>
       <Header
-        title="CREATE Profile"
-        subTitle="Here you can create profile (Admin - Crafter - User)"
+        title="Update Profile"
+        subTitle="Here you can update profile (Admin - Crafter - User)"
       />
       <Box
         onSubmit={handleSubmit(onSubmit)}
@@ -244,4 +250,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default UpdateTeam;

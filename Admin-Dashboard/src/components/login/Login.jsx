@@ -7,20 +7,27 @@ import { toast } from "react-toastify";
 function login({ setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const login = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(database, email, password)
-      .then((result) => {
-        let token = result._tokenResponse.idToken;
-        localStorage.setItem("token", token);
-        toast.success("welcomeBack " + email.substring(0, email.indexOf("@")));
-        setTimeout(() => {
-          setUser();
-        }, 3000);
-      })
-      .catch(function (error) {
-        toast.error("login failed");
-      });
+    if (password.length < 6) {
+      setMsg("Password must be at least 6 characters long");
+    } else {
+      signInWithEmailAndPassword(database, email, password)
+        .then((result) => {
+          let token = result._tokenResponse.idToken;
+          localStorage.setItem("token", token);
+          toast.success(
+            `Welcome back, ${email.substring(0, email.indexOf("@"))}!`
+          );
+          setTimeout(() => {
+            setUser();
+          }, 3000);
+        })
+        .catch(function (error) {
+          toast.error("Login failed. Please check your credentials.");
+        });
+    }
   };
   return (
     <div className="container">
@@ -43,8 +50,15 @@ function login({ setUser }) {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
+            setMsg("");
           }}
         />
+        {msg && (
+          <p className="password-validation-msg">
+            {msg}
+            <span> *</span>
+          </p>
+        )}
         <button
           className="btn"
           type="submit"

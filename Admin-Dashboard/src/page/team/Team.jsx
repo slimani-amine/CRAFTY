@@ -11,8 +11,11 @@ import DeleteOutlineTwoToneIcon from "@mui/icons-material/DeleteOutlineTwoTone";
 import UpdateIcon from "@mui/icons-material/Update";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Tostify } from "../Tostify/ToastyFy";
+import { useNavigate } from "react-router-dom";
 const Team = () => {
   const theme = useTheme();
+  const navigate=useNavigate()
   const [trigger, setTrigger] = useState(false);
   const [data, setdata] = useState([]);
   useEffect(() => {
@@ -26,28 +29,18 @@ const Team = () => {
         console.log(error);
       });
   }, [trigger]);
-  const deleteOne = (rowToDelete) => {
+  const deleteOne = (id) => {
     axios
-      .delete("http://localhost:4000/user/deleteuser", rowToDelete)
+      .delete(`http://localhost:4000/user/deleteuser/${id}`)
       .then(() => {
-        toast.success("Deleted");
+        toast.success("Deleted successfully.");
         setTrigger(!trigger);
       })
       .catch(() => {
-        toast.error("Error! Please try again");
+        toast.error("An error occurred. Please try again.");
       });
   };
-  const updateOne = (rowToUpdate) => {
-    axios
-      .put("http://localhost:4000/user/updateuser", rowToUpdate)
-      .then(() => {
-        toast.success("Deleted");
-        setTrigger(!trigger);
-      })
-      .catch(() => {
-        toast.error("Error! Please try again");
-      });
-  };
+  
 
   const columns = [
     {
@@ -79,7 +72,7 @@ const Team = () => {
     },
     {
       field: "access",
-      headerName: "access",
+      headerName: "Role",
       flex: 1,
       align: "center",
       headerAlign: "center",
@@ -142,9 +135,11 @@ const Team = () => {
                 mr: 5,
               }}
               onClick={() => {
-                updateOne(row);
+                navigate("/updateTeam", { state: { rowData: row } });
               }}
             >
+              <Tostify />
+
               <Typography sx={{ fontSize: "13px", color: "#fff" }}>
                 <UpdateIcon
                   sx={{
@@ -166,7 +161,7 @@ const Team = () => {
                 backgroundColor: "#8C3A3A",
               }}
               onClick={() => {
-                deleteOne(row);
+                deleteOne(row.id);
               }}
             >
               <Typography sx={{ fontSize: "13px", color: "#fff" }}>

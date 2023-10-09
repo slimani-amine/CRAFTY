@@ -8,7 +8,7 @@ const  {POST,GET,GETById,UPDATE,DELETE}= require("../controller/Article");
 router.post("/addarticle",POST);
 router.get("/getarticles",GET);
 router.get("/getarticle",GETById);
-router.put("/updatearticle",UPDATE);
+router.put("/updatearticle/:id",UPDATE);
 router.delete("/deletearticle",DELETE) 
 
 

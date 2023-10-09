@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./details.css";
 import { Autocomplete, Box, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -6,12 +6,25 @@ import DoneIcon from "@mui/icons-material/Done";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tostify } from "../Tostify/ToastyFy";
 import { toast } from "react-toastify";
+import axios from "axios";
 function ArticleDetails(props) {
   const [comment, setComment] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const { rowData } = location.state || {}; // Use default empty object if rowData doesn't exist
-  console.log(location.state, "sdsd");
+  const { rowData } = location.state || {};
+  const [title, settitle] = useState("");
+
+  const not = (idUser, comment) => {
+    let body = { title: title, body: comment };
+    axios
+      .post(
+        `http://localhost:4000/notification/addnotification/${idUser}`,
+        body
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const regles = [
     {
@@ -43,16 +56,44 @@ function ArticleDetails(props) {
     },
   ];
   const reject = (row) => {
-    if (comment.length===0) {
-      toast.error("please choose a regle for your reject");
+    if (comment.length === 0) {
+      toast.error("Please choose a reason for rejecting the article.");
     } else {
-      // add axios fn
+      axios
+        .put(`http://localhost:4000/article/deletearticle/${row.id}`)
+        .then((res) => {
+          not(row.id, comment);
+          toast.success(`Article rejected with reason: "${comment}".`);
+          setTimeout(() => {
+            navigate("/Articles");
+          }, 1100);
+        })
+        .catch((error) => {
+          toast.error("An error occurred. Please try again later.");
+        });
     }
   };
   const accept = (row) => {
-    
-    // add axios fn
-    navigate("/Articles" );
+    let body = {
+      id: row.id,
+      status: true,
+      title: row.title,
+      description: row.description,
+      coverImage: row.coverImage,
+      userId: row.userId,
+    };
+    axios
+      .put(`http://localhost:4000/article/updatearticle/${row.id}`, body)
+      .then((res) => {
+        not(row.id);
+        toast.success("Article accepted.");
+        setTimeout(() => {
+          navigate("/Articles");
+        }, 1100);
+      })
+      .catch((error) => {
+        toast.error("An error occurred. Please try again later.");
+      });
   };
 
   return (
@@ -85,6 +126,7 @@ function ArticleDetails(props) {
                         height: 40,
                       }}
                       onClick={() => {
+                        settitle(`article accepted ${rowData.id}`);
                         accept(rowData);
                       }}
                     >
@@ -111,6 +153,7 @@ function ArticleDetails(props) {
                         height: 40,
                       }}
                       onClick={() => {
+                        settitle(`article rejected ${rowData.id}`);
                         reject(rowData);
                       }}
                     >
