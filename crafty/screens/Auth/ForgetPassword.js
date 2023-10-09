@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios"
+import ADRESS_API from "../../Api";
 import {
   Text,
   View,
@@ -16,7 +17,7 @@ export default function ForgetPassword({ navigation }) {
    const [email,setemail] = useState()
    const sendEmail = async()=> {
     try{
-          const res = await axios.post("http://192.168.100.121:4000/reset/reset-password/send",{email:email})
+          const res = await axios.post(`http:/${ADRESS_API}:4000/reset/reset-password/send`,{email:email})
         console.log("🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:", res.data)
       
         if(res.status===200){
