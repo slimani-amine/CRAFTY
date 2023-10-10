@@ -35,7 +35,7 @@ export const Authprovider = ({ children }) => {
 
   const SignUp = async (email, password, name, lastname, role) => {
     try {
-    const  res=  await axios.post(`http://${ADRESS_API}:4000/auth/signup`, {
+    const  res=  await axios.post(`http:/${ADRESS_API}:4000/auth/signup`, {
         role:role,
         name: name,
         password: password,
