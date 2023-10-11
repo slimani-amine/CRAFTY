@@ -64,19 +64,19 @@ const Team = () => {
       headerAlign: "center",
     },
     {
-      field: "phone",
-      headerName: "phone",
+      field: "buisnessName",
+      headerName: "buisnessName",
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "access",
+      field: "role",
       headerName: "Role",
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { role } }) => {
         return (
           <Box
             sx={{
@@ -87,27 +87,27 @@ const Team = () => {
               display: "flex",
               justifyContent: "space-evenly",
               backgroundColor:
-                access === "Admin"
+                role === "Admin"
                   ? "#262401 "
-                  : access === "Crafter"
+                  : role === "Crafter"
                   ? "#8c633f"
                   : "#707324",
             }}
           >
-            {access === "Admin" && (
+            {role === "admin" && (
               <AdminPanelSettingsIcon sx={{ color: "#fff" }} fontSize="small" />
             )}
 
-            {access === "Crafter" && (
+            {role === "crafter" && (
               <ShoppingBagIcon sx={{ color: "#fff" }} fontSize="small" />
             )}
 
-            {access === "User" && (
+            {role === "user" && (
               <GroupIcon sx={{ color: "#fff" }} fontSize="small" />
             )}
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {access}
+              {role}
             </Typography>
           </Box>
         );

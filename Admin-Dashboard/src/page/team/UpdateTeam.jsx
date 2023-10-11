@@ -18,15 +18,15 @@ const regEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const data = [
   {
-    value: "Admin",
+    value: "admin",
     label: "Admin",
   },
   {
-    value: "Crafter",
+    value: "crafter",
     label: "Crafter",
   },
   {
-    value: "User",
+    value: "user",
     label: "User",
   },
 ];
@@ -42,19 +42,12 @@ const UpdateTeam = () => {
   } = useForm();
 
   const [open, setOpen] = React.useState(false);
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
 
   const [firstName, setfirstName] = useState(rowData.name);
   const [lastName, setlastName] = useState(rowData.lastName);
-  const [BusinessName, setBusinessName] = useState(rowData.name);
+  const [BusinessName, setBusinessName] = useState(rowData.buisnessName);
   const [email, setemail] = useState(rowData.email);
-  const [password, setpassword] = useState(rowData.password);
-  const [role, setrole] = useState(rowData.access);
+  const [role, setrole] = useState(rowData.role);
   const [Birthday, setBirthday] = React.useState(dayjs(rowData.birthday));
   const handleClick = () => {
     setOpen(true);
@@ -62,25 +55,22 @@ const UpdateTeam = () => {
     setlastName("");
     setBusinessName("");
     setemail("");
-    setpassword("");
-    setfirstName("");
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
     var obj = {
       firstName,
       lastName,
       BusinessName,
       email,
-      password,
       Birthday: Birthday["$d"].toString(),
       role,
     };
-    //here add the query of add someone + verification :
-
+    console.log(obj, "now");
     axios
-      .put(`http://localhost:4000/user/updateuser/${rowToUpdate.id}`, obj)
+      .put(`http://localhost:4000/user/updateuser/${rowData.id}`, obj)
       .then(() => {
         toast.success("information has been updated successfully.");
+        handleClick();
         setTimeout(() => {
           navigate("/team");
         }, 1100);
@@ -88,9 +78,6 @@ const UpdateTeam = () => {
       .catch(() => {
         toast.error("An error occurred. Please try again.");
       });
-
-    console.log("done", obj);
-    handleClick();
   };
 
   return (
@@ -178,22 +165,6 @@ const UpdateTeam = () => {
             setemail(e.target.value);
           }}
         />
-        <TextField
-          label="Password *"
-          variant="filled"
-          type="password"
-          error={Boolean(errors.password)}
-          helperText={
-            Boolean(errors.password)
-              ? "This field is required & min 8 character"
-              : null
-          }
-          {...register("password", { required: true, minLength: 8 })}
-          value={password}
-          onChange={(e) => {
-            setpassword(e.target.value);
-          }}
-        />
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateField"]}>
@@ -231,19 +202,8 @@ const UpdateTeam = () => {
             sx={{ textTransform: "capitalize", backgroundColor: "#8c633f" }}
             variant="contained"
           >
-            Create New User
+            Update
           </Button>
-
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
-              Account created successfully
-            </Alert>
-          </Snackbar>
         </Box>
       </Box>
     </Box>

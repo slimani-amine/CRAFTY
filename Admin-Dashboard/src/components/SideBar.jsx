@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -21,6 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Craftysvg from "../page/Craftysvg.jsx";
 import { database } from "../components/login/firebasecofig.js";
 import { signOut } from "firebase/auth";
+import axios from "axios";
 
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
@@ -91,7 +92,18 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
   let location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
-
+  const [adminName, setAdminName] = useState("Amine");
+  useEffect(() => {
+    const {email} = JSON.parse(localStorage.getItem("token"));
+    axios
+      .get(`http://localhost:4000/user/getuserByEmail/${email}`)
+      .then((res) => {
+        setAdminName(res.data.name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
@@ -121,7 +133,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
         align="center"
         sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}
       >
-        Layla Ali
+        {adminName}
       </Typography>
       <Typography
         align="center"
@@ -264,7 +276,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
       <List
         onClick={() => {
           signOut(database).then(() => {
-            localStorage.removeItem('token')
+            localStorage.removeItem("token");
             setUser();
           });
         }}
