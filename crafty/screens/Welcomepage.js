@@ -5,7 +5,11 @@ const Logoimg = require("../assets/crafty.gif");
 const Welcomepage = ({ navigation }) => {
   useEffect(()=>{
     setTimeout(() => {
+
+   
+
       navigation.navigate("SignUp")
+
     }, 2000);
   },[])
 

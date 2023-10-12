@@ -94,7 +94,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
   const theme = useTheme();
   const [adminName, setAdminName] = useState("Amine");
   useEffect(() => {
-    const {email} = JSON.parse(localStorage.getItem("token"));
+    const { email } = JSON.parse(localStorage.getItem("token"));
     axios
       .get(`http://localhost:4000/user/getuserByEmail/${email}`)
       .then((res) => {
@@ -127,7 +127,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
           transition: "0.25s",
         }}
         alt="Remy Sharp"
-        src="https://media.allure.com/photos/5a26c1d8753d0c2eea9df033/3:4/w_1262,h_1683,c_limit/mostbeautiful.jpg"
+        src="https://us.123rf.com/450wm/viktorijareut/viktorijareut1707/viktorijareut170700501/82760945-ic%C3%B4ne-de-l-homme-raster-illustration-homme-d-affaires-en-design-plat-d-avatar-costume-noir-avatar.jpg?ver=6"
       />
       <Typography
         align="center"

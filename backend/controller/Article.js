@@ -13,8 +13,6 @@ const POST = async (req, res) => {
         coverImage,
         likes,
         userId,
-        images,
-        comments,
       } = req.body;
       const Article = await prisma.Article.create({
         data: {
@@ -25,8 +23,6 @@ const POST = async (req, res) => {
           coverImage,
           likes,
           userId,
-          images,
-          comments,
         },
       });
 

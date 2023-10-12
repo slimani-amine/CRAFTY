@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import * as secureStore from "expo-secure-store";
 import axios from "axios";
+import ADRESS_API from "../../Api";
 export const Authprovider = ({ children }) => {
   const [authState, setAuthState] = useState({
     token: null,
@@ -30,12 +31,12 @@ export const Authprovider = ({ children }) => {
 
   const SignUp = async (email, password, name, lastname, role) => {
     try {
-    const  res=  await axios.post("http://192.168.121.21:4000/auth/signup", {
-        Role:role,
-        Name: name,
-        Password: password,
-        LastName: lastname,
-        Email: email,
+      const res = await axios.post(`http:/${ADRESS_API}:4000/auth/signup`, {
+        role: role,
+        name: name,
+        password: password,
+        lastName: lastname,
+        email: email,
       });
       if (res.status === 205) {
         return "email Allready exist";
@@ -43,15 +44,14 @@ export const Authprovider = ({ children }) => {
       return res.status;
     } catch (err) {
       return err;
-    }}
-    const Login = async (email, password) => {
-      try {
-        const response = await axios.post("http://192.168.121.21:4000/auth/login", {
-          password: password,
-<<<<<<< HEAD
-          Email: email,
-        }
-      );
+    }
+  };
+  const Login = async (email, password) => {
+    try {
+      const response = await axios.post(`http:/${ADRESS_API}:4000/auth/login`, {
+        password: password,
+        Email: email,
+      });
       console.log(
         "🚀 ~ file: Authprovider.js:58 ~ Login ~ response:",
         response.data
@@ -66,9 +66,6 @@ export const Authprovider = ({ children }) => {
         setAuthState({
           token: response.data.token,
           authenticated: true,
-=======
-          email: email,
->>>>>>> 63cd55f47af46800e6695f38cfde39ceb3541fd2
         });
         axios.defaults.headers.common[
           "Authorization"

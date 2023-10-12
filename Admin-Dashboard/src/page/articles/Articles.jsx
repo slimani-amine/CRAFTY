@@ -12,9 +12,6 @@ import { Tostify } from "../Tostify/ToastyFy";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import { rows } from "./data";
-
-
 function Articles() {
   const [comment, setComment] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null); // State to track selected value
@@ -25,8 +22,7 @@ function Articles() {
     const endpoints = ["http://localhost:4000/article/getarticles"];
     Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((results) => {
-        const newData = results.map((result) => result.data);
-        setdata([...data, ...newData]);
+        setdata(results[0].data);
       })
       .catch((error) => {
         console.log(error);
@@ -43,12 +39,12 @@ function Articles() {
         console.log(error);
       });
   };
-  let filterRows = rows.filter((e, i) => {
+  let filterRows = data.filter((e, i) => {
     return e.status === false;
   });
   const navigate = useNavigate();
-  // regles
-  const regles = [
+  // Reasons
+  const Reasons = [
     {
       label: " syntax errors.",
     },
@@ -85,7 +81,7 @@ function Articles() {
         return row.id === e.id;
       });
     if (comm.length === 0) {
-      toast.error("Please choose a reason for rejecting the article.");
+      toast.error("Please choose a Reason for rejecting the article.");
     } else {
       axios
         .put(`http://localhost:4000/article/deletearticle/${row.id}`)
@@ -234,9 +230,9 @@ function Articles() {
             <Autocomplete
               disablePortal
               id="combo-box-demo"
-              options={regles}
+              options={Reasons}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Regles" />}
+              renderInput={(params) => <TextField {...params} label="Reasons" />}
               onChange={(event, newValue) => {
                 setComment([...comment, { id: row.id, label: newValue.label }]);
                 setSelectedValue(true);

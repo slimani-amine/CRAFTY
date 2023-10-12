@@ -43,27 +43,26 @@ const UpdateTeam = () => {
 
   const [open, setOpen] = React.useState(false);
 
-  const [firstName, setfirstName] = useState(rowData.name);
+  const [name, setname] = useState(rowData.name);
   const [lastName, setlastName] = useState(rowData.lastName);
-  const [BusinessName, setBusinessName] = useState(rowData.buisnessName);
+  const [businessName, setbusinessName] = useState(rowData.buisnessName);
   const [email, setemail] = useState(rowData.email);
   const [role, setrole] = useState(rowData.role);
-  const [Birthday, setBirthday] = React.useState(dayjs(rowData.birthday));
   const handleClick = () => {
     setOpen(true);
-    setfirstName("");
+    setname("");
     setlastName("");
-    setBusinessName("");
+    setbusinessName("");
     setemail("");
   };
   const onSubmit = async () => {
     var obj = {
-      firstName,
-      lastName,
-      BusinessName,
-      email,
-      Birthday: Birthday["$d"].toString(),
       role,
+      name,
+      lastName,
+      businessName,
+      email,
+      password:rowData.password
     };
     console.log(obj, "now");
     axios
@@ -101,19 +100,19 @@ const UpdateTeam = () => {
 
         <Stack sx={{ gap: 2 }} direction={"row"}>
           <TextField
-            error={Boolean(errors.firstName)}
+            error={Boolean(errors.name)}
             helperText={
-              Boolean(errors.firstName)
+              Boolean(errors.name)
                 ? "This field is required & min 3 character"
                 : null
             }
-            {...register("firstName", { required: true, minLength: 3 })}
+            {...register("name", { required: true, minLength: 3 })}
             sx={{ flex: 1 }}
             label="First Name *"
             variant="filled"
-            value={firstName}
+            value={name}
             onChange={(e) => {
-              setfirstName(e.target.value);
+              setname(e.target.value);
             }}
           />
 
@@ -135,18 +134,18 @@ const UpdateTeam = () => {
           />
         </Stack>
         <TextField
-          error={Boolean(errors.BusinessName)}
+          error={Boolean(errors.businessName)}
           helperText={
-            Boolean(errors.BusinessName)
+            Boolean(errors.businessName)
               ? "This field is required & min 3 character & unique "
               : null
           }
-          label="BusinessName *"
+          label="businessName *"
           variant="filled"
-          {...register("firstName", { required: true, minLength: 3 })}
-          value={BusinessName}
+          {...register("name", { required: true, minLength: 3 })}
+          value={businessName}
           onChange={(e) => {
-            setBusinessName(e.target.value);
+            setbusinessName(e.target.value);
           }}
         />
 
@@ -165,18 +164,6 @@ const UpdateTeam = () => {
             setemail(e.target.value);
           }}
         />
-
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DateField"]}>
-            <DateField
-              label="Birthday"
-              value={Birthday}
-              onChange={(newValue) => setBirthday(newValue)}
-              sx={{ flex: 1 }}
-              variant="filled"
-            />
-          </DemoContainer>
-        </LocalizationProvider>
 
         <TextField
           variant="filled"

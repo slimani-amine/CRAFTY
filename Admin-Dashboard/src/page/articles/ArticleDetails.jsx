@@ -26,7 +26,7 @@ function ArticleDetails(props) {
       });
   };
 
-  const regles = [
+  const Reasons = [
     {
       label: " syntax errors.",
     },
@@ -57,13 +57,13 @@ function ArticleDetails(props) {
   ];
   const reject = (row) => {
     if (comment.length === 0) {
-      toast.error("Please choose a reason for rejecting the article.");
+      toast.error("Please choose a Reason for rejecting the article.");
     } else {
       axios
         .put(`http://localhost:4000/article/deletearticle/${row.id}`)
         .then((res) => {
           not(row.id, comment);
-          toast.success(`Article rejected with reason: "${comment}".`);
+          toast.success(`Article rejected with Reason: "${comment}".`);
           setTimeout(() => {
             navigate("/Articles");
           }, 1100);
@@ -170,7 +170,7 @@ function ArticleDetails(props) {
                   <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={regles}
+                    options={Reasons}
                     sx={{
                       width: 450,
                       marginLeft: "27%",
@@ -179,7 +179,7 @@ function ArticleDetails(props) {
                       color: "black",
                     }}
                     renderInput={(params) => (
-                      <TextField {...params} label="Regles" />
+                      <TextField {...params} label="Reasons" />
                     )}
                     onChange={(event, newValue) => {
                       setComment([

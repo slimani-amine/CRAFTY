@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { rows } from "./data";
 import { useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -15,15 +14,14 @@ import { Tostify } from "../Tostify/ToastyFy";
 import { useNavigate } from "react-router-dom";
 const Team = () => {
   const theme = useTheme();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [trigger, setTrigger] = useState(false);
   const [data, setdata] = useState([]);
   useEffect(() => {
     const endpoints = ["http://localhost:4000/user/getusers"];
     Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((results) => {
-        const newData = results.map((result) => result.data);
-        setdata([...data, ...newData]);
+        setdata(results[0].data);
       })
       .catch((error) => {
         console.log(error);
@@ -40,7 +38,6 @@ const Team = () => {
         toast.error("An error occurred. Please try again.");
       });
   };
-  
 
   const columns = [
     {
@@ -183,7 +180,7 @@ const Team = () => {
       <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={data}
           // @ts-ignore
           columns={columns}
         />

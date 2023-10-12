@@ -22,21 +22,19 @@ const GETBYEMAIL = async (req, res) => {
     if (!email) {
       return res.status(400).json({ error: "Email parameter is missing" });
     }
-    const articles = await prisma.Article.findMany({
+    const user = await prisma.user.findFirst({
       where: {
-        user: {
-          email: email,
-        },
+        email: email,
       },
     });
 
-    return res.status(200).json(articles);
+    return res.status(200).json(user);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
     return res
       .status(500)
-      .json({ message: "Error fetching articles by email", error: message });
+      .json({ message: "Error fetching user by email", error: message });
   }
 };
 
@@ -61,7 +59,7 @@ const UPDATE = async (req, { params }) => {
     } else {
       delete updateData.password;
     }
-
+    console.log(updateData);
     const updatedUser = await prisma.user.update({
       where: { id },
       data: updateData,
@@ -86,7 +84,7 @@ const DELETE = async (req, { params }) => {
     }
 
     const { id } = params;
-    await prisma.User.delete({
+    await prisma.user.delete({
       where: { id },
     });
 

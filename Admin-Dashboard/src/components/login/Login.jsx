@@ -9,33 +9,35 @@ function login({ setUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
-  const roleVerification = (email) => {
-    return axios
-      .get(`http://localhost:4000/user/getuserByEmail/${email}`)
-      .then((res) => {
-        return res.data.Role === "admin"
-          ? true
-          : res.data.Role === "user"
-          ? "other role"
-          : false;
-      })
-      .catch((error) => {
-        console.log(error);
-        return false;
-      });
+  const roleVerification = async (email) => {
+    console.log(email);
+    try {
+      const res = await axios.get(`http://localhost:4000/user/getuserByEmail/${email}`);
+      const role = res.data.role;
+      console.log("Role:", role);
+  
+      return role === "admin" ? true : role === "user" ? "other role" : false;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   };
+  
+
   const login = async (e) => {
     e.preventDefault();
     if (password.length < 6) {
-      setMsg("Password must be at least 6 characters long");
+      setMsg("Password must be at least 6 characters long")
     } else {
       const verifRole = await roleVerification(email);
+      console.log(verifRole , "verif");
       if (verifRole === true) {
         signInWithEmailAndPassword(database, email, password)
           .then((result) => {
-            const user = userCredential.user;
-            const token = user.getIdToken();
-            localStorage.setItem("token", JSON.stringify({ token, email }));
+            console.log(result);
+            // const user = userCredential.user;
+            // const token = user.getIdToken();
+            localStorage.setItem("token", JSON.stringify({ token: email }));
             toast.success(
               `Welcome back, ${email.substring(0, email.indexOf("@"))}!`
             );

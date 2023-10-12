@@ -10,32 +10,32 @@ require("dotenv").config()
       console.log(body,"boodyyy");
       
       const { 
-        Role,
-        Name,
-        LastName,
-        BuisnessName,
-        Email,
-        DateOfBirth,
-        Password} =body
+        role,
+        name,
+        lastName,
+        buisnessName,
+        email,
+        dateOfBirth,
+        password} =body
       const user = await prisma.user.findFirst({
         where: {
-          email: Email
+          email: email
         },
       })
      
       if (user?.email)   return res.status(205).send({ message: " email allready exist !" });
       console.log(body);
       const salt = await bcrypt.genSalt(10);
-      var hashedpassowrd = await bcrypt.hash(Password, salt)
+      var hashedpassowrd = await bcrypt.hash(password, salt)
       const newData = await prisma.user.create({
         data: { 
             
-            role: Role ,
-            name: Name,
-            lastName: LastName,
-            buisnessName:BuisnessName,
-            email: Email,
-            dateOfBirth: DateOfBirth  ,
+            role: role ,
+            name: name,
+            lastName: lastName,
+            buisnessName:buisnessName,
+            email: email,
+            dateOfBirth: dateOfBirth  ,
             password: hashedpassowrd ,
         },
       });
