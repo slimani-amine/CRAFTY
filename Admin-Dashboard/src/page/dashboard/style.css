@@ -28,14 +28,11 @@
     margin-top: -2%;
 }
 
-/* Colors for icons */
 .card-icon {
-    font-size: 2.5rem; /* Adjust the font-size to the desired size */
+    font-size: 2.5rem;
     color: #9E6F21;
   }
 
-
-/* Background colors for cards */
 .bg-fcf4ff {
     background-color: #F2EAD3;
 }

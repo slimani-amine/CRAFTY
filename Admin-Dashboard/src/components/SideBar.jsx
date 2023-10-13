@@ -139,6 +139,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
 
       />
       <Typography
+      
         align="center"
         sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}
       >
