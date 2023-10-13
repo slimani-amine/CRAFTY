@@ -106,8 +106,15 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
   });
   return (
     <Drawer variant="permanent" open={open}>
-      <DrawerHeader>
-        <Craftysvg />
+      <DrawerHeader
+        sx={{
+          cursor: "pointer"
+        }}
+        onClick={() => {
+          navigate("/");
+        }}>
+        <Craftysvg
+        />
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === "rtl" ? (
             <ChevronRightIcon />
@@ -125,9 +132,11 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
           my: 1,
           border: "2px solid grey",
           transition: "0.25s",
+
         }}
         alt="Remy Sharp"
         src="https://us.123rf.com/450wm/viktorijareut/viktorijareut1707/viktorijareut170700501/82760945-ic%C3%B4ne-de-l-homme-raster-illustration-homme-d-affaires-en-design-plat-d-avatar-costume-noir-avatar.jpg?ver=6"
+
       />
       <Typography
         align="center"

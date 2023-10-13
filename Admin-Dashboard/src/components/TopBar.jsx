@@ -130,7 +130,9 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               }}
               color="inherit"
             >
+              <small> Try the dark mode &nbsp; &nbsp;</small>
               <LightModeOutlinedIcon />
+              
             </IconButton>
           ) : (
             <IconButton
@@ -145,17 +147,13 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               }}
               color="inherit"
             >
+              <small> Try the Light mode &nbsp; &nbsp;</small>
               <DarkModeOutlinedIcon />
+              
             </IconButton>
           )}
 
-          <IconButton color="inherit">
-            <NotificationsOutlinedIcon
-              onClick={() => {
-                navigate("/calendar");
-              }}
-            />
-          </IconButton>
+
 
           <IconButton color="inherit">
             <SettingsOutlinedIcon
@@ -165,9 +163,6 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
             />
           </IconButton>
 
-          <IconButton color="inherit">
-            <Person2OutlinedIcon />
-          </IconButton>
         </Stack>
       </Toolbar>
     </AppBar>
